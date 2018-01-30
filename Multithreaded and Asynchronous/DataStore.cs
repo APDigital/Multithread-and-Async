@@ -32,12 +32,16 @@ namespace Multithreaded_and_Asynchronous
         {
             lock (firstStore)
             {
-                lock (secondStore)
+                if (firstStore.Value == secondStore.Value)
                 {
-                    firstStore.Value++;
-                    secondStore.Value++;
+                    lock (secondStore)
+                    {
+
+                        secondStore.Value++;
+                    }
                 }
-                
+                firstStore.Value++;
+
             }
         }
     }
